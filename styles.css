@@ -1,0 +1,13 @@
+.oneTwit {
+    width: 77%;
+    background-color: gray;
+    margin: 22px auto;
+    padding: 0 5px;
+    cursor: pointer;
+    /* border: thin red solid; */
+}
+
+.oneTwit:hover {
+    background-color: lightgreen;
+}
+
