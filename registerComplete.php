@@ -52,7 +52,7 @@
 
                 if($mysqli -> query($sql) === TRUE){
                     // user registered
-                    echo "done";
+                    header("Location: userTwits.php");
                     // user twits
                 }
                 else {
