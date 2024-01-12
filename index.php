@@ -31,8 +31,15 @@
     <hr>
 
     <?php
-        $sql = "SELECT * FROM twits, users WHERE `twits`.`userId`=`users`.`id` ORDER BY `twits`.`createdAt` DESC;";
-
+        $sql = "SELECT 
+        twits.id,
+        twits.twitText,
+        twits.createdAt,
+        users.fullName,
+        COUNT(comments.id) AS comment_count
+        FROM twits LEFT JOIN comments ON twits.id = comments.twitId 
+        LEFT JOIN users ON twits.userId = users.id
+        GROUP BY twits.id ORDER BY twits.createdAt DESC LIMIT 10";
         if($result = $mysqli -> query($sql)){
             if(mysqli_num_rows($result) == 0){
                 echo "<h2>You has no twits yet .....</h2>";
@@ -41,9 +48,10 @@
                 while($row = $result -> fetch_row())
                 {
                     echo "<div class='oneTwit' onclick='gotoComments(" . $row[0] . ");'>";
-                        echo "<h3>" . $row[5] . "</h3>";
-                        echo "<h4>" . $row[3] . "</h4>";
+                        echo "<h3>" . $row[3] . "</h3>";
+                        echo "<h4>" . $row[2] . "</h4>";
                         echo "<p>" . $row[1] . "</p>";
+                        echo "<P>You have ".$row[4]." Comments</p>";
                     echo "</div>";
                 }
             }
